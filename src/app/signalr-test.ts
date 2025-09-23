@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@aspnet/signalr'
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalrTest {
 
-  constructor() { }
+  constructor(private toastr:ToastrService) { }
 
   hubConnection: signalR.HubConnection | undefined;
 
@@ -23,14 +24,14 @@ export class SignalrTest {
     }).catch(err=>console.log('Error while starting connection: '+err))
   }
 
-  askServer = () =>{
-    this.hubConnection?.invoke('AskServer','hey')
+  async askServer() {
+    await this.hubConnection?.invoke('AskServer','hey')
     .catch(err=>console.error(err));
   }
 
-  askServerListener = () =>{
+  askServerListener () {
     this.hubConnection?.on('AskServerResponse',(texts)=>{
-      console.log(texts);
+      this.toastr.success(texts);
     });
   }
 
