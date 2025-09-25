@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as signalR from '@aspnet/signalr'
 import { ToastrService } from 'ngx-toastr';
 
@@ -7,9 +8,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignalrTest {
 
-  constructor(private toastr:ToastrService) { }
+  constructor(private toastr:ToastrService,private router:Router) { }
 
   hubConnection: signalR.HubConnection | undefined;
+  personName:string = '';
 
   startConnection = () =>{
     this.hubConnection = new signalR.HubConnectionBuilder()
