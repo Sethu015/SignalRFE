@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SignalrTest {
 
-  constructor(private toastr:ToastrService,private router:Router) { }
+  constructor(public toastr:ToastrService,public router:Router) { }
 
   hubConnection: signalR.HubConnection | undefined;
   personName:string = '';
