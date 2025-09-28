@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SignalrTest } from './signalr-test';
+import { AuthService } from './auth';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { SignalrTest } from './signalr-test';
   styleUrl: './app.css'
 })
 export class App implements OnInit,OnDestroy {
-  constructor(private signalRService:SignalrTest){
+  constructor(private signalRService:SignalrTest,private authService:AuthService) {
 
   }
   ngOnDestroy(): void {
