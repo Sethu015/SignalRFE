@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SignalrTest } from './signalr-test';
+import { SignalrTest, User } from './signalr-test';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +34,11 @@ export class AuthService {
   }
 
   public authMeListenerSuccess() {
-    this.signalRService.hubConnection?.on('AuthMeResponseSuccess',(person:any) =>{
-      this.signalRService.personName = person.userName;
+    this.signalRService.hubConnection?.on('AuthMeResponseSuccess',(userData:User) =>{
+      this.signalRService.userData = userData;
       this.isAuthenticated = true;
-      localStorage.setItem('personId',person.id);
-      this.signalRService.toastr.success('Login successfull. Welcome '+this.signalRService.personName);
+      localStorage.setItem('personId',userData.id);
+      this.signalRService.toastr.success('Login successfull. Welcome '+this.signalRService.userData?.name);
       this.signalRService.router.navigate(['/home']);
     });
   }
@@ -60,11 +60,11 @@ export class AuthService {
   }
 
   public reAuthMeListenerSuccess(){
-    this.signalRService.hubConnection?.on('ReAuthMeResponseSuccess',(person:any) =>{
-      this.signalRService.personName = person.userName;
+    this.signalRService.hubConnection?.on('ReAuthMeResponseSuccess',(userData:User) =>{
+      this.signalRService.userData = userData;
       this.isAuthenticated = true;
-      localStorage.setItem('personId',person.id);
-      this.signalRService.toastr.success('ReAuth successfull. Welcome back '+this.signalRService.personName);
+      localStorage.setItem('personId',userData.id);
+      this.signalRService.toastr.success('ReAuth successfull. Welcome back '+this.signalRService.userData.name);
       if(this.signalRService.router.url === '/auth')
         this.signalRService.router.navigate(['/home']);
     });

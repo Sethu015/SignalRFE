@@ -4,15 +4,23 @@ import * as signalR from '@aspnet/signalr'
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 
+
+export interface User{
+  id:string;
+  name : string;
+  connId:string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class SignalrTest {
 
   constructor(public toastr:ToastrService,public router:Router) { }
 
   hubConnection: signalR.HubConnection | undefined;
-  personName:string = '';
+  userData:User | undefined;
   ssSub = new Subject<any>();
   ssObs():Observable<any>{
     return this.ssSub.asObservable();
